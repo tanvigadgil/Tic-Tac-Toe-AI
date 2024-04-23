@@ -1,23 +1,4 @@
-BOARD_WIDTH = 3
-BOARD_HEIGHT = 3
-
-ROWS = [
-    [(0, 0), (0, 1), (0, 2)],
-    [(1, 0), (1, 1), (1, 2)],
-    [(2, 0), (2, 1), (2, 2)]
-]
-
-COLUMNS = [
-    [(0, 0), (1, 0), (2, 0)],
-    [(0, 1), (1, 1), (2, 1)],
-    [(0, 2), (1, 2), (2, 2)]
-]
-
-DIAGONALS = [
-    [(0, 0), (1, 1), (2, 2)],
-    [(0, 2), (1, 1), (2, 0)]
-]
-
+import utils
 
 def newBoard():
     # board = [
@@ -26,7 +7,7 @@ def newBoard():
     #     [None, None, None]
     # ]
 
-    board = [[None for _ in range(BOARD_WIDTH)] for _ in range(BOARD_HEIGHT)]
+    board = [[None for _ in range(utils.BOARD_WIDTH)] for _ in range(utils.BOARD_HEIGHT)]
     return board
 
 
@@ -34,7 +15,7 @@ def render(board):
     print("  0 1 2")
     print(" --------")
 
-    for i in range(BOARD_HEIGHT):
+    for i in range(utils.BOARD_HEIGHT):
         row = ""
         for sq in board[i]:
             if sq is None:
@@ -51,7 +32,7 @@ def getMove():
     return (moveX, moveY)  # Should be immutable
 
 def isValidMove(board, coords):
-    if board[coords[0]][coords[1]] is not None or not (0 <= coords[0] < BOARD_HEIGHT) or not (0 <= coords[1] < BOARD_WIDTH):
+    if board[coords[0]][coords[1]] is not None or not (0 <= coords[0] < utils.BOARD_HEIGHT) or not (0 <= coords[1] < utils.BOARD_WIDTH):
         return False
     return True
 
@@ -63,7 +44,7 @@ def makeMove(board, coords, player):
 
 # Convert into set (does not contain duplicates) and check the length
 def getWinner(board):
-    allLines = ROWS + COLUMNS + DIAGONALS
+    allLines = utils.ROWS + utils.COLUMNS + utils.DIAGONALS
 
     for line in allLines:
         lineValues = [board[x][y] for (x, y) in line]
