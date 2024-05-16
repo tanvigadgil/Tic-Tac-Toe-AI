@@ -1,4 +1,7 @@
 import utils
+import heuristic as ai
+
+import sys
 
 def newBoard():
     # board = [
@@ -26,10 +29,16 @@ def render(board):
         print(str(i) + "|" + " ".join(row))
     print(" --------")
 
-def getMove():
-    moveX = int(input("Enter your move's X co-ordinate: "))
-    moveY = int(input("Enter your move's Y co-ordinate: "))
-    return (moveX, moveY)  # Should be immutable
+def getMove(board, currentPlayer, player):
+    if player == "human":
+        moveX = int(input("Enter your move's X co-ordinate: "))
+        moveY = int(input("Enter your move's Y co-ordinate: "))
+        return (moveX, moveY)  # Should be immutable
+    elif player == "ai":
+        aiOutput = ai.alphaBetaPruning(board, currentPlayer)
+        # aiOutput = ai.minimax_ai(board, currentPlayer)
+        print("Output:", aiOutput)
+        return aiOutput
 
 def isValidMove(board, coords):
     if board[coords[0]][coords[1]] is not None or not (0 <= coords[0] < utils.BOARD_HEIGHT) or not (0 <= coords[1] < utils.BOARD_WIDTH):
@@ -76,18 +85,20 @@ def isBoardFull(board):
 # render(board)
 # print(getWinner(board))
 
-def play():
-    players = ["X", "O"]
+def play(player1, player2):
+    players = [("X", player1),
+               ("O", player2)
+               ]
     turnNum = 0
     board = newBoard()
     moveCoords = None
 
     while True:
-        currentPlayer = players[turnNum % 2]
+        currentPlayer, player = players[turnNum % 2]
         render(board)
         print(currentPlayer, "'s turn:")
 
-        moveCoords = getMove()
+        moveCoords = getMove(board, currentPlayer, player)
         makeMove(board, moveCoords, currentPlayer)
         winner = getWinner(board)
 
@@ -103,4 +114,12 @@ def play():
 
         turnNum += 1
 
-play()
+
+def main():
+    player1 = input("Player for 'X' (human / AI):").lower()
+    player2 = input("Player for 'O' (human / AI):").lower()
+    play(player1, player2)
+    
+
+if __name__ == "__main__":
+    main()    
