@@ -1,5 +1,6 @@
 BOARD_WIDTH = 3
 BOARD_HEIGHT = 3
+DEPTH = 4 # Max depth till which the algorithm should evaluate
 
 ROWS = [
     [(0, 0), (0, 1), (0, 2)],

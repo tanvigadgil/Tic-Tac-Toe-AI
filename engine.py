@@ -35,7 +35,7 @@ def getMove(board, currentPlayer, player):
         moveY = int(input("Enter your move's Y co-ordinate: "))
         return (moveX, moveY)  # Should be immutable
     elif player == "ai":
-        aiOutput = ai.alphaBetaPruning(board, currentPlayer)
+        aiOutput = ai.bestMove(board, currentPlayer, currentPlayer)
         # aiOutput = ai.minimax_ai(board, currentPlayer)
         print("Output:", aiOutput)
         return aiOutput
@@ -62,12 +62,14 @@ def getWinner(board):
     
     return None
 
+# TODO: Optimize this
 def isBoardFull(board):
-    for col in board:
-        for row in col:
-            if row is None:
-                return False
-    return True 
+    # for col in board:
+    #     for row in col:
+    #         if row is None:
+    #             return False
+    # return True 
+    return all([cell != None for row in board for cell in row])
 
 # board = newBoard()
 # board[0][0] = "X"
