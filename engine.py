@@ -1,8 +1,6 @@
 import utils
 import heuristic as ai
 
-import sys
-
 def newBoard():
     # board = [
     #     [None, None, None],
@@ -36,7 +34,6 @@ def getMove(board, currentPlayer, player):
         return (moveX, moveY)  # Should be immutable
     elif player == "ai":
         aiOutput = ai.bestMove(board, currentPlayer, currentPlayer)
-        # aiOutput = ai.minimax_ai(board, currentPlayer)
         print("Output:", aiOutput)
         return aiOutput
 
@@ -51,6 +48,7 @@ def makeMove(board, coords, player):
         return
     board[coords[0]][coords[1]] = player
 
+
 # Convert into set (does not contain duplicates) and check the length
 def getWinner(board):
     allLines = utils.ROWS + utils.COLUMNS + utils.DIAGONALS
@@ -62,30 +60,8 @@ def getWinner(board):
     
     return None
 
-# TODO: Optimize this
-def isBoardFull(board):
-    # for col in board:
-    #     for row in col:
-    #         if row is None:
-    #             return False
-    # return True 
+def isBoardFull(board): 
     return all([cell != None for row in board for cell in row])
-
-# board = newBoard()
-# board[0][0] = "X"
-# board[1][0] = "X"
-# board[2][0] = "X"
-# render(board)
-# print(getWinner(board))
-# moveCoords = getMove()
-# print(moveCoords)
-# makeMove(board, moveCoords, "O")
-# render(board)
-# print(getWinner(board))
-# moveCoords_1 = (0, 0)
-# makeMove(board, moveCoords_1, "X")
-# render(board)
-# print(getWinner(board))
 
 def play(player1, player2):
     players = [("X", player1),
